@@ -1,3 +1,6 @@
+
+// -> client/src/components/Register.jsx
+
 import { useState } from "react";
 import "../styles/Register.css";
 
@@ -192,3 +195,6 @@ function Register({ onRegisterSuccess }) {
 }
 
 export default Register;
+
+
+

@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
 
 import "./App.css";
 
@@ -52,3 +52,7 @@ function App() {
 }
 
 export default App;
+
+
+
+

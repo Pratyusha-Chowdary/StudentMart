@@ -1,3 +1,6 @@
+
+//->client/src/components.Dashboard.jsx
+
 import { useEffect, useState } from "react";
 import "../styles/Dashboard.css";
 
