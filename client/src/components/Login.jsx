@@ -1,3 +1,5 @@
+
+
 import { useState } from "react";
 import "../styles/Login.css";
 
@@ -19,58 +21,100 @@ function Login({ onLoginSuccess, onRegister }) {
 
     };
 
-    const handleSubmit = async (e) => {
 
-        e.preventDefault();
+    //first program code
+    // const handleSubmit = async (e) => {
 
-        setMessage("");
+    //     e.preventDefault();
 
-        try {
+    //     setMessage("");
 
-            const response = await fetch(
-                "http://localhost:5002/api/auth/login",
-                {
-                    method: "POST",
+    //     try {
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+    //         const response = await fetch(
+    //             "http://localhost:5002/api/auth/login",
+    //             {
+    //                 method: "POST",
 
-                    body: JSON.stringify(form)
-                }
-            );
+    //                 headers: {
+    //                     "Content-Type": "application/json"
+    //                 },
 
-            const data = await response.json();
+    //                 body: JSON.stringify(form)
+    //             }
+    //         );
 
-            if (response.ok) {
+    //         const data = await response.json();
 
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(data.user)
-                );
+    //         if (response.ok) {
 
-                setMessage(data.message);
+    //             localStorage.setItem(
+    //                 "user",
+    //                 JSON.stringify(data.user)
+    //             );
 
-                setTimeout(() => {
-                    onLoginSuccess();
-                }, 500);
+    //             setMessage(data.message);
 
-            } else {
+    //             setTimeout(() => {
+    //                 onLoginSuccess();
+    //             }, 500);
 
-                setMessage(data.message);
+    //         } else {
 
+    //             setMessage(data.message);
+
+    //         }
+
+    //     } catch (error) {
+
+    //         console.error(error);
+
+    //         setMessage(
+    //             "Unable to connect to server"
+    //         );
+
+    //     }
+    // };
+
+
+//second program code
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+        const response = await fetch(
+            "http://localhost:5002/api/auth/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(form)
             }
+        );
 
-        } catch (error) {
+        const data = await response.json();
 
-            console.error(error);
-
-            setMessage(
-                "Unable to connect to server"
-            );
-
+        if (!response.ok) {
+            setMessage(data.message || "Login failed");
+            return;
         }
-    };
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        setMessage(data.message);
+        onLoginSuccess();
+    } catch (error) {
+        console.error(error);
+        setMessage("Unable to connect to server");
+    }
+};
+
+
+
+
 
     return (
 

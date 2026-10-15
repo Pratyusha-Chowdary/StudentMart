@@ -1,3 +1,67 @@
+
+
+// //app.jsx for first program
+// import { useState } from "react";
+
+// import Register from "./components/Register";
+// import Login from "./components/Login";
+// import Dashboard from "./components/Dashboard";
+
+// import "./App.css";
+
+// function App() {
+
+//     const [page, setPage] = useState("login");
+
+//     const handleRegisterSuccess = () => {
+//         setPage("login");
+//     };
+
+//     const handleLoginSuccess = () => {
+//         setPage("dashboard");
+//     };
+
+//     const handleLogout = () => {
+
+//         localStorage.removeItem("user");
+
+//         setPage("login");
+//     };
+
+//     return (
+//         <div className="app">
+
+//             {page === "register" && (
+//                 <Register
+//                     onRegisterSuccess={handleRegisterSuccess}
+//                 />
+//             )}
+
+//             {page === "login" && (
+//                 <Login
+//                     onLoginSuccess={handleLoginSuccess}
+//                     onRegister={() => setPage("register")}
+//                 />
+//             )}
+
+//             {page === "dashboard" && (
+//                 <Dashboard
+//                     onLogout={handleLogout}
+//                 />
+//             )}
+
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+//app.jsx for second program
+
 import { useState } from "react";
 
 import Register from "./components/Register";
@@ -7,7 +71,6 @@ import Dashboard from "./components/Dashboard";
 import "./App.css";
 
 function App() {
-
     const [page, setPage] = useState("login");
 
     const handleRegisterSuccess = () => {
@@ -19,15 +82,13 @@ function App() {
     };
 
     const handleLogout = () => {
-
+        localStorage.removeItem("token");
         localStorage.removeItem("user");
-
         setPage("login");
     };
 
     return (
         <div className="app">
-
             {page === "register" && (
                 <Register
                     onRegisterSuccess={handleRegisterSuccess}
@@ -42,17 +103,10 @@ function App() {
             )}
 
             {page === "dashboard" && (
-                <Dashboard
-                    onLogout={handleLogout}
-                />
+                <Dashboard onLogout={handleLogout} />
             )}
-
         </div>
     );
 }
 
 export default App;
-
-
-
-
