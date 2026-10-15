@@ -1,27 +1,48 @@
+
+
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+// Import authentication routes
+const authRoutes = require("./routes/authRoutes");
+
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// Test route
 app.get("/", (req, res) => {
     res.json({
         message: "StudentMart API is running"
     });
 });
 
+// Connect authentication routes
+app.use("/api/auth", authRoutes);
+
+
+// console.log("Authentication routes loaded");
+
+app.use((req, res, next) => {
+    console.log("Incoming request:", req.method, req.originalUrl);
+    next();
+});
+
+// Connect to MongoDB
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
         console.log("MongoDB connected");
 
-        app.listen(process.env.PORT, () => {
+        app.listen(process.env.PORT || 5002, () => {
             console.log(
-                `Server running on http://localhost:${process.env.PORT}`
+                `Server running on http://localhost:${process.env.PORT || 5002}`
             );
         });
     })
