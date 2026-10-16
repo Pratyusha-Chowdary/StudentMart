@@ -152,13 +152,13 @@
 
 
 
-//second program dashbaord code
+//second and third program dashboard code
 import { useEffect, useState } from "react";
 import "../styles/Dashboard.css";
 
 const API = "http://localhost:5002/api/profile";
 
-function Dashboard({ onLogout }) {
+function Dashboard({ onLogout, onViewProducts }) {
     const [user, setUser] = useState(null);
     const [editing, setEditing] = useState(false);
     const [changingPassword, setChangingPassword] = useState(false);
@@ -349,6 +349,10 @@ function Dashboard({ onLogout }) {
                 <div className="dashboard-card">
                     <p>{error}</p>
                     <button onClick={onLogout}>Back to Login</button>
+
+                    <button type="button" onClick={onViewProducts}>
+    Browse Products
+</button>
                 </div>
             </div>
         );
@@ -360,12 +364,9 @@ function Dashboard({ onLogout }) {
 
     return (
         <div className="dashboard-page">
-            <nav className="dashboard-navbar">
-                <div className="dashboard-logo">StudentMart</div>
-                <button onClick={onLogout} className="nav-logout-button">
-                    Logout
-                </button>
-            </nav>
+            
+
+
 
             <main className="dashboard-content">
                 <div className="welcome-section">

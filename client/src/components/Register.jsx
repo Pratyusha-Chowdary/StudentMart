@@ -6,192 +6,192 @@ import "../styles/Register.css";
 
 function Register({ onRegisterSuccess }) {
 
-    const [form, setForm] = useState({
-        name: "",
-        email: "",
-        password: ""
-    });
+const [form, setForm] = useState({
+name: "",
+email: "",
+password: ""
+});
 
-    const [message, setMessage] = useState("");
+const [message, setMessage] = useState("");
 
-    const handleChange = (e) => {
+const handleChange = (e) => {
+
+setForm({
+    ...form,
+    [e.target.name]: e.target.value
+});
+
+};
+
+const handleSubmit = async (e) => {
+
+e.preventDefault();
+
+setMessage("");
+
+try {
+
+    const response = await fetch(
+        "http://localhost:5002/api/auth/register",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(form)
+        }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+
+        setMessage(data.message);
 
         setForm({
-            ...form,
-            [e.target.name]: e.target.value
+            name: "",
+            email: "",
+            password: ""
         });
 
-    };
+        setTimeout(() => {
+            onRegisterSuccess();
+        }, 1000);
 
-    const handleSubmit = async (e) => {
+    } else {
 
-        e.preventDefault();
+        setMessage(data.message);
 
-        setMessage("");
+    }
 
-        try {
+} catch (error) {
 
-            const response = await fetch(
-                "http://localhost:5002/api/auth/register",
-                {
-                    method: "POST",
+    console.error(error);
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+    setMessage(
+        "Unable to connect to server"
+    );
 
-                    body: JSON.stringify(form)
-                }
-            );
+}
+};
 
-            const data = await response.json();
+return (
 
-            if (response.ok) {
+<div className="register-page">
 
-                setMessage(data.message);
+    <div className="register-left">
 
-                setForm({
-                    name: "",
-                    email: "",
-                    password: ""
-                });
+        <div className="brand-content">
 
-                setTimeout(() => {
-                    onRegisterSuccess();
-                }, 1000);
+            <h1>StudentMart</h1>
 
-            } else {
+            <h2>
+                Your Student Shopping
+                Destination
+            </h2>
 
-                setMessage(data.message);
-
-            }
-
-        } catch (error) {
-
-            console.error(error);
-
-            setMessage(
-                "Unable to connect to server"
-            );
-
-        }
-    };
-
-    return (
-
-        <div className="register-page">
-
-            <div className="register-left">
-
-                <div className="brand-content">
-
-                    <h1>StudentMart</h1>
-
-                    <h2>
-                        Your Student Shopping
-                        Destination
-                    </h2>
-
-                    <p>
-                        Create your account and
-                        start exploring StudentMart.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div className="register-right">
-
-                <div className="register-card">
-
-                    <h1>Create Account</h1>
-
-                    <p className="subtitle">
-                        Register to continue
-                    </p>
-
-
-                    <form onSubmit={handleSubmit}>
-
-                        <div className="input-group">
-
-                            <label>
-                                Full Name
-                            </label>
-
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Enter your full name"
-                                value={form.name}
-                                onChange={handleChange}
-                                required
-                            />
-
-                        </div>
-
-
-                        <div className="input-group">
-
-                            <label>
-                                Email Address
-                            </label>
-
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Enter your email"
-                                value={form.email}
-                                onChange={handleChange}
-                                required
-                            />
-
-                        </div>
-
-
-                        <div className="input-group">
-
-                            <label>
-                                Password
-                            </label>
-
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Enter your password"
-                                value={form.password}
-                                onChange={handleChange}
-                                required
-                                minLength="6"
-                            />
-
-                        </div>
-
-
-                        {message && (
-                            <p className="register-message">
-                                {message}
-                            </p>
-                        )}
-
-
-                        <button
-                            type="submit"
-                            className="register-button"
-                        >
-                            Create Account
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </div>
+            <p>
+                Create your account and
+                start exploring StudentMart.
+            </p>
 
         </div>
-    );
+
+    </div>
+
+
+    <div className="register-right">
+
+        <div className="register-card">
+
+            <h1>Create Account</h1>
+
+            <p className="subtitle">
+                Register to continue
+            </p>
+
+
+            <form onSubmit={handleSubmit}>
+
+                <div className="input-group">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your full name"
+                        value={form.name}
+                        onChange={handleChange}
+                        required
+                    />
+
+                </div>
+
+
+                <div className="input-group">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        value={form.email}
+                        onChange={handleChange}
+                        required
+                    />
+
+                </div>
+
+
+                <div className="input-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        value={form.password}
+                        onChange={handleChange}
+                        required
+                        minLength="6"
+                    />
+
+                </div>
+
+
+                {message && (
+                    <p className="register-message">
+                        {message}
+                    </p>
+                )}
+
+
+                <button
+                    type="submit"
+                    className="register-button"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+);
 }
 
 export default Register;

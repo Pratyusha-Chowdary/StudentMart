@@ -203,3 +203,199 @@ body {
     cursor: pointer;
     text-decoration: underline;
 }
+
+
+
+/* ===== Main Dashboard Layout ===== */
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #f8fafc;
+    color: #1e293b;
+    font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    width: 245px;
+    height: 100vh;
+    padding: 24px 16px;
+    box-sizing: border-box;
+    background: #172554;
+    color: #ffffff;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 42px;
+    padding: 0 8px;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #4f46e5;
+    color: #ffffff;
+}
+
+.sidebar-label {
+    margin: 0 0 14px;
+    padding-left: 10px;
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 13px 12px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: #cbd5e1;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar-link span {
+    font-size: 17px;
+}
+
+.sidebar-link:hover {
+    background: #263765;
+    color: #ffffff;
+}
+
+.sidebar-link.active {
+    background: #4f46e5;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.logout-link:hover {
+    background: #7f1d1d;
+}
+
+/* Main content */
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+/* Product pages should fit inside the dashboard content area */
+
+.dashboard-main .products-page,
+.dashboard-main .product-details-page {
+    max-width: 1200px;
+    padding: 8px 0;
+}
+
+.dashboard-main .product-form-page {
+    min-height: auto;
+    padding: 8px 0;
+    background: transparent;
+}
+
+/* Tablet */
+
+@media (max-width: 800px) {
+    .sidebar {
+        width: 200px;
+        padding: 20px 12px;
+    }
+
+    .sidebar-brand {
+        font-size: 18px;
+    }
+
+    .dashboard-main {
+        padding: 20px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 560px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        width: 100%;
+        height: auto;
+        padding: 12px;
+    }
+
+    .sidebar-brand {
+        margin-bottom: 14px;
+        font-size: 18px;
+    }
+
+    .sidebar-label,
+    .sidebar-bottom {
+        display: none;
+    }
+
+    .sidebar-link {
+        flex: 1;
+        justify-content: center;
+        gap: 5px;
+        margin: 0;
+        padding: 10px 6px;
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .sidebar-link span {
+        font-size: 15px;
+    }
+
+    /* Keep menu items in a horizontal row on mobile */
+    .sidebar {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .sidebar-brand {
+        grid-column: 1 / -1;
+    }
+
+    .dashboard-main {
+        min-height: auto;
+        padding: 16px 12px;
+    }
+}
